@@ -1,0 +1,13 @@
+In our study we analyzed Google Chrome a large open source project to understand the different characteristics between Bugs and Defect Debt. 
+
+We show in our approach how to extract, process and link data from this project. We also explain the different metrics that we selected and how we group the metrics into releases. 
+
+Making use of these case study setup we find that it is possible to characterize Defect Debt from bugs. Bugs are more impacting defects, and get fixed in the reported or in the next release. Whereas Defect Debt may linger in the system for a long time, but eventually it get fixed. We draw this conclusion after analyzing the behavior of the fixes throughout 25 different releases of the project. Based on the results, the average percentage of Bugs is of 69.55\%, and Defect Debt is of 30.44\%.
+
+We found that the defect debt does not impact negatively the addition of new features. Is important to notice that we are not considering other aspects that may impact quality.  
+
+Although the correlations between the measures are not high their directions gives us insights to add more meaningful metrics.
+
+One possible way to improve the Defect Debt model is to calculate the effective size for the regression. Other possibility is to reformulate the problem. Changing the granularity of the analysis to the level file instead of the release level. 
+
+In a future work we plan to include in our analyze the severity of the issues. In our current analysis we do not take this factor in consideration. This will lead us further in the understanding of Defect Debt characterization, and prevent us of relying just on the assumption that only what is import get fixed. As a matter of fact, more research in this subject can provide empirical evidence for proving or rejecting this assumption.
