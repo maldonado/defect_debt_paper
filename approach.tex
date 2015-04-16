@@ -25,9 +25,11 @@ Second, we create the attributes to store information about the commit classific
 
 Third, we create a table to store metrics values. We collect our metrics using Understand a code analysis tool. This tool can analyze different releases of a project and create a separated database containing several metrics \ref{understand_metrics} for each one of the processed releases. It is possible to access these databases through an API and collect the processed information. We checkout 18 stable releases from our Chrome repository based on the collected tag information from the selected releases. Due to the size of the project and time constraints we use only the `chrome' directory without the third party libraries in our analysis. The whole process took approximately 16 hours and generated more than 2GB of data. 
 
-Different scripts written in Python and SQL were developed during this step in order to make this process automatic and easily reproducible. We provide the link\footnotetext{https://github.com/maldonado/soen6611} to these files just to evaluation purposes. 
+Different scripts written in Python and SQL were developed during this study in order to make this process automatic and easily reproducible. We provide the link\footnotetext{https://github.com/maldonado/soen6611} to these files just to evaluation purposes.
 
 \subsection{Link data}
+
+The most important data to link for our study are bug reports and the commits that are addressing them. As mentioned before, we took advantage of data used in a different study that had done this work already. Other than that, we link all of our entities in the database with releases as we are investigating the behavior of Defect Debt and Bugs per release. 
 
 \subsection{Define metrics}
 
