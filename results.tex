@@ -34,7 +34,7 @@ In some cases, like shown in figure \ref{fig:defect_release_6} we can observe a 
 
 Accordingly with our findings, we say that it is possible to distinguish regular Bugs and Defect Debt based on their fix behavior. Bugs are more critical defects and are fixed near to its reported date (i.e., in the same or in the immediately next release), and Defect Debts are defects that lingers in the system for several releases but eventually are fixed. We believe that the fix behavior of the 
 
-There is not hard proof in our study that the reason that Bugs are fixed first than Defect Debt because they are more critical, but based on our experience we argue that tasks in a project are assigned to developers following a priority order. Even considering a open source environment where non-core developers (e.g., an anonymous contributor), could be fixing bugs just because they are easy to fix, previous work \todo{cite appache work from peter} has shown that most of the development activity is done by the core developers of the system.
+There is not hard proof in our study that the reason that Bugs are fixed first than Defect Debt because they are more critical, but based on our experience we argue that tasks in a project are assigned to developers following a priority order. Even considering a open source environment where non-core developers (e.g., an anonymous contributor), could be fixing bugs just because they are easy to fix, previous work by Mockus et al. \cite{mockus2010ICSM} has shown that most of the development activity is done by the core developers of the system.
 
 Based on our findings we quantify the average of Bugs and Defect Debt in the analyzed releases. Considering the reported defects on Chrome has an average of 69.55\% Bugs and 30.44\% of Defect Debt.
 
@@ -70,11 +70,47 @@ Fourth, we compare the distribution of Defect Debt with the distribution of Feat
   
 Based on this graph we found that during all releases there was a considerable number of open bugs in the system, and the developers of the project prioritize some fixes other than others. This behavior could mean that the bugs that were not fixed because they were not important. In order to analyze that we extract the distribution of the Defect Debt in figure \ref{fig:technical_debt}. We found that the behavior of Defect Debt is much more volatile. We see growth in peaks, but they are fixed in future versions. That means that they are important enough to be fixed, they just delay the fix until a moment that it is more fit to fix it.
 
-Analyzing the number of `Feature Addition' commits we found that in the first releases has the highest amount of `Feature Addition' commits as shown in figure \ref{fig:feature_addition_releases} . This confirms what we expected to see in the beginning of the development of a product. Surprisingly though is that the number of Defect Debt does not seems to cause a negative impact in the addition of new features. Analyzing both graphs we see that as the number of feature addition increases we have a increase in the number of Defect Debt as well. This lead us to the conclusion that new features brings more Defect Debt to the system and that after some versions they are corrected. 
+Analyzing the number of `Feature Addition' commits we found that in the first releases has the highest amount of `Feature Addition' commits as shown in figure \ref{fig:feature_addition_releases} . This confirms what we expected to see in the beginning of the development of a product. Surprisingly though is that the number of Defect Debt does not seems to cause a negative impact in the addition of new features. Analyzing both graphs we see that as the number of feature addition increases we have a increase in the number of Defect Debt as well. This lead us to the conclusion that new features brings more Defect Debt to the system and that after some releases they are corrected. We show detailed information about feature addition distribution and Defect Debt distribution in table \ref{tab:feature_addition_badsmell_overview}.
 
 Although the number of Defect Debt have no impact in the number of feature addition, we can not say that Defect does not cause any other kind of impact. In this study we did not take in consideration the number of developers needed to keep adding features or the amount of time necessary to do it. we understand that more analysis is necessary to understand what is the impact that Defect Debt has in the quality of a software project.
 
-\todo{table with FADD and number of DD release.}
+\conclusionbox{Based on our study, the number of Defect Debt does not impact directly the number of feature addition in the project. Moreover, the increase of feature addition may increase the number of Defect Debt. The average number commits classified as feature addition in Chrome is of 349.24 per release, whereas average number of Defect Debt found in each release is of 648.52 }
+
+\begin{table}[!hbt]
+      \begin{center}
+            \caption{Feature addition and Defect Debt overview}
+            \label{tab:feature_addition_badsmell_overview}
+            \begin{tabular}{l| c c }
+            \toprule
+            \textbf{Release}  & \textbf{Feature Addition} & \textbf{Defect Debt} \\ \midrule 
+              1  & 1046 & 598   \\ 
+              2  & 622 & 560    \\ 
+              3  & 487 & 1044   \\ 
+              4  & 520 & 604    \\ 
+              5  & 463 & 800    \\ 
+              6  & 185 & 465    \\ 
+              7  & 163 & 530    \\ 
+              8  & 187 & 582    \\ 
+              9  & 148 & 377    \\ 
+             10  & 253 & 606    \\ 
+             11  & 201 & 427    \\ 
+             12  & 313 & 763    \\ 
+             13  & 255 & 561    \\ 
+             14  & 230 & 561    \\ 
+             15  & 315 & 849    \\ 
+             16  & 274 & 789    \\ 
+             17  & 367 & 876    \\ 
+             18  & 354 & 687    \\ 
+             19  & 287 & 946    \\ 
+             20  & 228 & 738    \\ 
+             21  & 398 & 498    \\ 
+             22  & 288 & 882    \\ 
+             23  & 475 & 438    \\ 
+             24  & 394 & 642    \\ 
+             25  & 278 & 390    \\ \bottomrule
+            \end{tabular}
+      \end{center}
+\end{table}
 
 \begin{figure}[thb!]
 	\caption{Distribution of Defect Debt}
@@ -97,9 +133,9 @@ Although the number of Defect Debt have no impact in the number of feature addit
 \vspace{1mm}
 \noindent\textbf{Approach:} First we selected  of metrics that we believed that would be good indicators of Defect Debt. In our data base we prepared the following metrics per release: number of corrective commits, number of feature addition commits, number of merge commits, number of non function commits, number of perfective commits, number of preventative commits, number of non classified commits, total number of churn, total number of developers, difference of developers from previous release, project complexity, lines of code, number of comments in the bug report, total number of bug fixes and bug reported close to the next release.
 
-Second, we run the analysis in understand, and build our own script to extracted data using the API. We extract lines of code and complexity of the release using Understand. We process 17 tag of Chrome in this tool creating one database for each tag. The oldest tag that we were able to retrieve from Chrome in this experiment was the release \todo{release}. To create our model we just consider tags that we can get all the selected metrics, which means \todo{tags}
+Second, we run the analysis in Understand, and build our own script to extracted data using the API. We extract lines of code and complexity of each release using Understand. We process 17 tags of Chrome in this tool creating one database for each tag. The oldest tag that we were able to retrieve from Chrome in this experiment was the tag 10.0.648.127. We cloned the git repository using the repository provided in GitHub \footnote{https://chromium.googlesource.com/chromium/src}. To create our model we just consider tags that we can get all the selected metrics, which means tags ranging to version 10.0.648.127 to 25.0.1364.97.
 
-Third, we import the data into RStudio. RStudio is a tool to the statical analysis using the programming language R. For each one of the metrics that we collect we checked their data distribution. We do that using skewness and kurtosis both are commands from the library e1071 that can be imported into RStudio. Skewness is used to verify if the data is skewed to the left or to the right in the x axis. The value returned from this function should be close to zero, which means that your data is normally distributed. Kurtosis follows the same principle but is used to check the data distribution in the y axis. After running these commands we apply the log function to the following factors in order to normalize the data: number non functional commits, difference of developers from previous release and number of comments in the bug report. 
+Third, we import the data into RStudio. RStudio is a tool to the statical analysis using the programming language R. For each one of the metrics that we collect we checked their data distribution. We do that using skewness and kurtosis both are commands from the library `e1071' that can be imported into RStudio. Skewness is used to verify if the data is skewed to the left or to the right in the x axis. The value returned from this function should be close to zero, which means that your data is normally distributed. Kurtosis follows the same principle but is used to check the data distribution in the y axis. After running these commands we apply the log function to the following factors in order to normalize the data: number non functional commits, difference of developers from previous release and number of comments in the bug report. 
 
 Fourth we do the correlation of the factors. and test the results of the correlation.
 
