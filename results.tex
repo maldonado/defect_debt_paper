@@ -21,13 +21,13 @@ Fourth, we take all reported defects for each one of the releases. Then, we grou
 \begin{figure}[thb!]
 	\caption{Fix for defects reported in release 1.}
 	\label{fig:defect_release_1}
-	\includegraphics[width=90mm,scale=0.5]{figures/r1}
+	\includegraphics[width=0.49\textwidth]{figures/r1}
 \end{figure}
 
 \begin{figure}[thb!]
 	\caption{Fix for defects reported in release 6.}
 	\label{fig:defect_release_6}
-	\includegraphics[width=90mm,scale=0.5]{figures/r6}
+	\includegraphics[width=0.49\textwidth]{figures/r6}
 \end{figure}
 
 In some cases, like shown in figure \ref{fig:defect_release_6} we can observe a reopened bug. (i.e., the same defect has a fix reported in one previous release and in the current release as well). Just based in this argument, we can not say that we were able to identify all reopened bugs in the system. There are different factors that can impact this scenario (e.g., it is possible that a reopened bug has a new bug id in the issuer tracker, and in that case our approach would not identify it as a reopened bug). More investigation is needed in order to explain this phenomena in a satisfactory way. 
@@ -38,7 +38,9 @@ There is not hard proof in our study that the reason that Bugs are fixed first t
 
 Based on our findings we quantify the average of Bugs and Defect Debt in the analyzed releases. Considering the reported defects on Chrome has an average of 69.55\% Bugs and 30.44\% of Defect Debt.
 
+\vspace{1mm}
 \conclusionbox{Bugs are more critical defects, and get fixed in the reported or in the next release. Whereas Defect Debt may linger in the system for a long time, but eventually it get fixed. The average percentage of Bugs is of 69.55\%, and Defect Debt is of 30.44\%}
+\vspace{1mm}
 
 \vspace{3mm}
 \noindent\rqii
@@ -65,7 +67,7 @@ Fourth, we compare the distribution of Defect Debt with the distribution of Feat
 \begin{figure}[thb!]
 	\caption{Number of open bugs per release}
 	\label{fig:number_of_bugs_releases}
-	\includegraphics[width=90mm,scale=0.5]{figures/number_of_bugs_releases}
+	\includegraphics[width=0.49\textwidth]{figures/number_of_bugs_releases}
 \end{figure}
   
 Based on this graph we found that during all releases there was a considerable number of open bugs in the system, and the developers of the project prioritize some fixes other than others. This behavior could mean that the bugs that were not fixed because they were not important. In order to analyze that we extract the distribution of the Defect Debt in figure \ref{fig:technical_debt}. We found that the behavior of Defect Debt is much more volatile. We see growth in peaks, but they are fixed in future versions. That means that they are important enough to be fixed, they just delay the fix until a moment that it is more fit to fix it.
@@ -74,7 +76,9 @@ Analyzing the number of `Feature Addition' commits we found that in the first re
 
 Although the number of Defect Debt have no impact in the number of feature addition, we can not say that Defect does not cause any other kind of impact. In this study we did not take in consideration the number of developers needed to keep adding features or the amount of time necessary to do it. we understand that more analysis is necessary to understand what is the impact that Defect Debt has in the quality of a software project.
 
+\vspace{1mm}
 \conclusionbox{Based on our study, the number of Defect Debt does not impact directly the number of feature addition in the project. Moreover, the increase of feature addition may increase the number of Defect Debt. The average number commits classified as feature addition in Chrome is of 349.24 per release, whereas average number of Defect Debt found in each release is of 648.52 }
+\vspace{1mm}
 
 \begin{table}[!hbt]
       \begin{center}
@@ -115,13 +119,13 @@ Although the number of Defect Debt have no impact in the number of feature addit
 \begin{figure}[thb!]
 	\caption{Distribution of Defect Debt}
 	\label{fig:technical_debt}
-	\includegraphics[width=90mm,scale=0.5]{figures/technical_debt}
+	\includegraphics[width=0.49\textwidth]{figures/technical_debt}
 \end{figure}
 
 \begin{figure}[thb!]
     \caption{Release density evolution}
     \label{fig:feature_addition_releases}
-    \includegraphics[width=90mm,scale=0.5]{figures/feature_addition_releases}
+    \includegraphics[width=0.49\textwidth]{figures/feature_addition_releases}
 \end{figure}
 
 \vspace{3mm}
@@ -133,17 +137,95 @@ Although the number of Defect Debt have no impact in the number of feature addit
 \vspace{1mm}
 \noindent\textbf{Approach:} First we selected  of metrics that we believed that would be good indicators of Defect Debt. In our data base we prepared the following metrics per release: number of corrective commits, number of feature addition commits, number of merge commits, number of non function commits, number of perfective commits, number of preventative commits, number of non classified commits, total number of churn, total number of developers, difference of developers from previous release, project complexity, lines of code, number of comments in the bug report, total number of bug fixes and bug reported close to the next release.
 
-Second, we run the analysis in Understand, and build our own script to extracted data using the API. We extract lines of code and complexity of each release using Understand. We process 17 tags of Chrome in this tool creating one database for each tag. The oldest tag that we were able to retrieve from Chrome in this experiment was the tag 10.0.648.127. We cloned the git repository using the repository provided in GitHub \footnote{https://chromium.googlesource.com/chromium/src}. To create our model we just consider tags that we can get all the selected metrics, which means tags ranging to version 10.0.648.127 to 25.0.1364.97.
+Second, we run the analysis in Understand, and build our own script to extracted data using the API. We extract lines of code and complexity of each release using Understand. We process 15 tags of Chrome in this tool creating one database for each tag. The oldest tag that we were able to retrieve from Chrome in this experiment was the tag 10.0.648.127. We cloned the git repository using the repository provided in GitHub \footnote{https://chromium.googlesource.com/chromium/src}. To create our model we just consider tags that we can get all the selected metrics, which means tags ranging to version 10.0.648.127 to 25.0.1364.97.
 
 Third, we import the data into RStudio. RStudio is a tool to the statical analysis using the programming language R. For each one of the metrics that we collect we checked their data distribution. We do that using skewness and kurtosis both are commands from the library `e1071' that can be imported into RStudio. Skewness is used to verify if the data is skewed to the left or to the right in the x axis. The value returned from this function should be close to zero, which means that your data is normally distributed. Kurtosis follows the same principle but is used to check the data distribution in the y axis. After running these commands we apply the log function to the following factors in order to normalize the data: number non functional commits, difference of developers from previous release and number of comments in the bug report. 
 
-Fourth we do the correlation of the factors. and test the results of the correlation.
+Fourth, we analyze the correlation of our metrics,  and test the result of the correlation. Using RStudio we run the correlation command using `spearman' method. Then we test the correlation significance. Instead of using `cor.test' that cal test only one correlation at a time we opted to use `psych' package. The correlation test function of this package produces correlations and significance levels for matrices of Pearson, Spearman, or Kendall correlations. We can use it using the command `corr.test(dataset, use=``complete'')'. We discuss the correlation results further. 
 
-Fifth, we build the model and do the vif function to verify the factors in the model that are measuring the same thing. 
- 
+Fifth, we build the model and run the vif function to calculate the variance inflation factor of our model. We imported `car' package in RStudio to be able to run the vif function.
+After the installation we run vif(model) command. With the returned value we can see with two or more of our factors are actually measuring the same thing. If is that the case, we can choose between which factors to keep and simplify our model.  
+
 \vspace{1mm}
-\noindent\textbf{Result:}
+\noindent\textbf{Result:} We create a summary table in our database containing all the selected metrics. All the data in the table are shown in table \ref{tab:metrics_details_1} and in table \ref{tab:metrics_details_2} in the Appendix section. We were able to collect all the desired metrics to a limited number of releases. This happened because in our dataset we have two different scenarios. For the linked bugs and commits we have data from the first release until release 25, and using the Chromium repository to analyze the source code we have available release 10 and forth. We opted to reduce our analyzed dataset to the intersection part of both scenarios,  giving us complete information of 15 releases of Chrome.
 
-\todo{table with correlation}
-\todo{explain the model}
-\todo{table with all the results}
+We verify the collected data in RStudio to understand how it is distributed. First we run skewness for each one of our metrics, based on the result returned we applied the log function to the following metrics:  log(non\_functional\_commit +1), log(dev\_left + 1) and  log(bug\_report\_reply + 1). Then we repeat the same process to verify the values of y axis using kurtosis, but no action was necessary. 
+
+We show the correlation results in table \ref{tab:correlation_defect_debt}.  Analyzing the results we can see that the only metric strongly correlated with Defect Debt is the number of comments in a bug reported. We believe that this express one of the found characteristics of Defect Debt that is defects that are important but get a long time to be fixed. During the period of time that fixes are postponed to these defects comments in the bug reported starts to pile up. 
+
+Other than that, it is interesting to analyze the negative correlations that we got. A negative correlation means that the correlated factors has an inverse relationship (i.e., as one increase the other one will decrease). For example, we found this scenario in the total number of developer per release, when this number increases the number of Defect Debt will decrease. We think that this behavior may be valid as you have more developers working in the release there is more chances to Defect Debt be removed. At first, the analysis of the other negative correlations does not looks like to make sense as they are stating that more complexity and lines of code means less Defect Debt. Accordingly to our previous findings that the number of feature addition can increase the number of Defect Debt, we think that this correlations are possible as complexity and loc are measures that are related with the size of the source code. Although there is a explanation for these correlation (i.e., without any code the project will have no defects) it does not means that these correlations are useful for our model of Defect Debt. 
+
+\begin{table}[!hbt]
+      \begin{center}
+            \caption{Correlation for Defect Debt}
+            \label{tab:correlation_defect_debt}
+            \begin{tabular}{l| c}
+            \toprule
+            \textbf{Metric}                            & \textbf{Value}         \\ \midrule                                         
+                corrective\_commit                      &              0.4647059 \\ 
+                feature\_add\_commit                     &              0.2735294 \\ 
+                non\_functional\_commit                  &             -0.1149598 \\ 
+                perfective\_commit                      &              0.1911765 \\ 
+                preventative\_commit                    &              0.1692421 \\ 
+                t\_churn                                &              0.4029412 \\ 
+                t\_dev                                  &             -0.1617647 \\ 
+                dev\_join                               &              0.3566273 \\ 
+                dev\_left                               &             -0.3295160 \\ 
+                complexity                             &             -0.2852941 \\ 
+                loc                                    &             -0.2852941 \\ 
+                bug\_report\_reply                       &              0.8147059 \\ 
+                bug\_reported\_two\_weeks\_pre\_release     &              0.5147059 \\ 
+                file\_changes                           &              0.3264706 \\  \bottomrule
+            \end{tabular}
+      \end{center}
+\end{table}
+
+Based on the correlations that we got, we tried to create a model. Although we experimented with many different combinations between our factors at this moment we were not able to get a solid model to Defect Debt. Our factors in the model does not have statistical significance as we show in table \ref{tab:model_p_values}  as the p value is too hight for every factor that we collect. Interesting to notice that our model has a hight R-squared value of 0.6932, but this hight value alone does not mean anything as our factors are not statistically relevant. One possible explanation for this result is the low amount of data that we are analyzing as we group all of our metrics in the release level. To improve this result we plan to use the same metrics in the file level in a future work. This will provide us with the amount of data that we think that is necessary to run this experiment successfully. 
+
+\begin{table}[!hbt]
+      \begin{center}
+            \caption{Model P values}
+            \label{tab:model_p_values}
+            \begin{tabular}{l| c}
+            \toprule
+            \textbf{Metric}  & \textbf{P value} \\ \midrule                                         
+            corrective\_commit                      &                     0.768 \\ 
+            feature\_add\_commit                     &                    0.419 \\ 
+            log(non\_functional\_commit +1)                  &            0.680 \\ 
+            perfective\_commit                      &                     0.579 \\ 
+            preventative\_commit                    &                     0.667 \\ 
+            t\_churn                                &                     0.527 \\ 
+            t\_dev                                  &                     0.427 \\ 
+            dev\_join                               &                     0.509 \\ 
+            log(dev\_left + 1)                               &            0.661 \\ 
+            complexity                             &                      0.950 \\ 
+            loc                                    &                      0.947 \\ 
+            log(bug\_report\_reply + 1)                       &           0.644 \\ 
+            bug\_reported\_two\_weeks\_pre\_release     &                 0.493 \\ 
+            file\_changes                           &                     0.754 \\  \bottomrule
+            \end{tabular}
+      \end{center}
+\end{table}
+
+As a last effort to produce a more relevant model with the current dataset we searched for methods to evaluate and improve our regression model. We found information about how to calculate the variance inflation factor of our model. There is a specific function to calculate this value implemented by `car' package in R. We used this function to analyze our model. The model was built using all the factors available. Based on the result we kept all the factors that the vif function value were lesser than 16. Ideally we should select the results that has value lesser than 10 but experimenting with the factors in different models we found that for out data basing the threshold in 16 works better for all model as some of the factors gained statistical significance.
+
+In table \ref{tab:improved_model_p_values} we show the metrics and the p values obtained for them. There is still a lot of improvement needed in order to achieve a satisfactory result, but this exercise to build and improve the models will be of value with a improved dataset.
+
+\begin{table}[!hbt]
+      \begin{center}
+            \caption{Improved Model P values}
+            \label{tab:improved_model_p_values}
+            \begin{tabular}{l| c}
+            \toprule
+            \textbf{Metric}  & \textbf{P value} \\ \midrule                                         
+            log(non\_functional\_commit +1)                  &            0.70125 \\ 
+            log(dev\_left + 1)                               &            0.01697* \\ 
+            log(bug\_report\_reply + 1)                      &           0.00162** \\ 
+            bug\_reported\_two\_weeks\_pre\_release          &                 0.52534 \\ \bottomrule
+            \end{tabular}
+      \end{center}
+\end{table}
+
+\vspace{1mm}
+\conclusionbox{Based on our results is not yet possible to effectively model Defect Debt using our dataset. However, we studied the correlations of our metrics and applied  techniques that efficiently improved our results. We devise a strategy to work on the problems found in this study in a future work when we will have a improved dataset to answer this question more properly.}
+\vspace{1mm}
