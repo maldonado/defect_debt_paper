@@ -18,6 +18,18 @@ Fourth, we take all reported defects for each one of the releases. Then, we grou
 \vspace{1mm}
 \noindent\textbf{Result:} Analyzing the graphs shown in figure \ref{fig:defect_release_1} we observe that most defects are fixed during the release that they were reported or in the immediately next one. A smaller quantity of defects reported in the current release will remain in the system for a long time, but eventually get fixed. The observed pattern holds for each analyzed version. 
 
+\begin{figure}[thb!]
+	\caption{Fix for defects reported in release 1.}
+	\label{fig:defect_release_1}
+	\includegraphics[width=90mm,scale=0.5]{figures/r1}
+\end{figure}
+
+\begin{figure}[thb!]
+	\caption{Fix for defects reported in release 6.}
+	\label{fig:defect_release_6}
+	\includegraphics[width=90mm,scale=0.5]{figures/r6}
+\end{figure}
+
 In some cases, like shown in figure \ref{fig:defect_release_6} we can observe a reopened bug. (i.e., the same defect has a fix reported in one previous release and in the current release as well). Just based in this argument, we can not say that we were able to identify all reopened bugs in the system. There are different factors that can impact this scenario (e.g., it is possible that a reopened bug has a new bug id in the issuer tracker, and in that case our approach would not identify it as a reopened bug). More investigation is needed in order to explain this phenomena in a satisfactory way. 
 
 Accordingly with our findings, we say that it is possible to distinguish regular Bugs and Defect Debt based on their fix behavior. Bugs are more critical defects and are fixed near to its reported date (i.e., in the same or in the immediately next release), and Defect Debts are defects that lingers in the system for several releases but eventually are fixed. We believe that the fix behavior of the 
@@ -28,46 +40,51 @@ Based on our findings we quantify the average of Bugs and Defect Debt in the ana
 
 \conclusionbox{Bugs are more critical defects, and get fixed in the reported or in the next release. Whereas Defect Debt may linger in the system for a long time, but eventually it get fixed. The average percentage of Bugs is of 69.55\%, and Defect Debt is of 30.44\%}
 
- 
-\begin{figure}[thb!]
-    \caption{Fix for defects reported in release 1.}
-    \label{fig:defect_release_1}
-    \includegraphics[width=90mm,scale=0.5]{figures/r1}
-\end{figure}
-
-\begin{figure}[thb!]
-    \caption{Fix for defects reported in release 6.}
-    \label{fig:defect_release_6}
-    \includegraphics[width=90mm,scale=0.5]{figures/r6}
-\end{figure}
-
 \vspace{3mm}
 \noindent\rqii
 \vspace{3mm}
 
-\noindent\textbf{Motivation:} Technical debt can bring you short term advantage in trade off maintenance costs in the  long run. which means that when well managed technical debt can be used as a tool to achieve projects goals. That been said, we want to know how much is too much when dealing with technical debt. We argue that the amount of technical debt starts to slow down your development is the point to pay off. 
+\noindent\textbf{Motivation:} In general Technical debt can bring you short term advantage in trade off maintenance costs in the future. Which means that well managed Defect Debt can be used as a tool to achieve projects goals. That said, we want to how Defect Debt impact the addition of new features in the system. We want to know if the increase of Defect Debt will result in a decrease in feature addition. 
 
 \vspace{1mm}
-\noindent\textbf{Approach:} Now that we have an approach to identify defect debt we want to see how it relates with the amount of changes in the project. First we quantify the number of defect debt in the software, then we mine the source code repository to examine the changes. We will find all the changes(commits) related to a specific release using the commit date. Analyzing the commit messages we will categorize the changes of the release to see with the change is due to a bug fix or adding new features. After this analyze we will have the number of commits that were bug fix and the number of commits that were new features. To measure if  a high number of defect debt is preventing new features to be implemented in the project, we analyze if the number of new features are reducing at the same time that the number bug fixes are increasing. We also should expect that a higher number of defects is reported when the number of technical debt is higher in the project.
+\noindent\textbf{Approach:} First we track the quantity of open bugs in the system (i.e, Bugs and Defect Debt). It is important to know how many open bugs are present in the system, and understand its distribution in the releases. This way we can visualize the system "health" in terms of defect. To calculate the total number of open bugs of the first release, we subtract the number of fixed bugs from the number of reported bugs the remainder is the number of open bugs of the release. All the subsequents releases have to take into consideration the number of open bugs from the previous release. The formula to calculate open bugs is:
+
+\begin{center}
+	$Open bugs=  Reported - Fixed + Last Release OpenBugs$
+\end{center}
+
+Second, we extract the number of  Defect Debt from the system. To understand how Defect Debt will impact the number of feature addition we have to collect the total number of Defect Debt per release. We define Defect Debt as a defect that was reported more than 2 releases from the current release being analyzed. We say that a Defect Debt belongs to a release when the fix for the Defect Debt is commited in the release.
+ 
+Third, we label all the commits and group them by release. We use a tool that classify the intention of a commit based on the message that the developer post when he/she is done with the task. A label is one of the possible classifications that this tool provides and, we are interested in all commits that have the label `Feature Addition'.   
+
+Fourth, we compare the distribution of Defect Debt with the distribution of Feature Addition commits. To see the distribution of Defect Debt we group the total number of Defect Debt per release and plot a graph with the result. Then we group the total number of commits labeled as `Feature Addition' per release and plot a graph with the result.
 
 \vspace{1mm}
-\noindent\textbf{Result:} The number of open defects increases during the project life-cycle. Defect Debt has growth peaks, but eventually get removed in future releases. Analyzing the feature addition and the defect debt graph we found that the introduction of defect debt does not impact the number of  feature addition per release. 
+\noindent\textbf{Result:} We show the number of open bugs in figure \ref{fig:number_of_bugs_releases}. We found that the number of bugs keep increasing as the project gets older. Towards the end of the graph we see a major decrease in the number of open bugs in the system, but this happened as a reflexion of our data. As we get near the end of our data set, we see the effects of the lack of information about future releases. 
 
 \begin{figure}[thb!]
-    \caption{Release density evolution}
-    \label{fig:release_density}
-    \includegraphics[width=90mm,scale=0.5]{figures/number_of_bugs_releases}
+	\caption{Number of open bugs per release}
+	\label{fig:number_of_bugs_releases}
+	\includegraphics[width=90mm,scale=0.5]{figures/number_of_bugs_releases}
+\end{figure}
+  
+Based on this graph we found that during all releases there was a considerable number of open bugs in the system, and the developers of the project prioritize some fixes other than others. This behavior could mean that the bugs that were not fixed because they were not important. In order to analyze that we extract the distribution of the Defect Debt in figure \ref{fig:technical_debt}. We found that the behavior of Defect Debt is much more volatile. We see growth in peaks, but they are fixed in future versions. That means that they are important enough to be fixed, they just delay the fix until a moment that it is more fit to fix it.
+
+Analyzing the number of `Feature Addition' commits we found that in the first releases has the highest amount of `Feature Addition' commits as shown in figure \ref{fig:feature_addition_releases} . This confirms what we expected to see in the beginning of the development of a product. Surprisingly though is that the number of Defect Debt does not seems to cause a negative impact in the addition of new features. Analyzing both graphs we see that as the number of feature addition increases we have a increase in the number of Defect Debt as well. This lead us to the conclusion that new features brings more Defect Debt to the system and that after some versions they are corrected. 
+
+Although the number of Defect Debt have no impact in the number of feature addition, we can not say that Defect does not cause any other kind of impact. In this study we did not take in consideration the number of developers needed to keep adding features or the amount of time necessary to do it. we understand that more analysis is necessary to understand what is the impact that Defect Debt has in the quality of a software project.
+
+\todo{table with FADD and number of DD release.}
+
+\begin{figure}[thb!]
+	\caption{Distribution of Defect Debt}
+	\label{fig:technical_debt}
+	\includegraphics[width=90mm,scale=0.5]{figures/technical_debt}
 \end{figure}
 
 \begin{figure}[thb!]
     \caption{Release density evolution}
-    \label{fig:release_density}
-    \includegraphics[width=90mm,scale=0.5]{figures/technical_debt}
-\end{figure}
-
-\begin{figure}[thb!]
-    \caption{Release density evolution}
-    \label{fig:release_density}
+    \label{fig:feature_addition_releases}
     \includegraphics[width=90mm,scale=0.5]{figures/feature_addition_releases}
 \end{figure}
 
@@ -75,10 +92,22 @@ Based on our findings we quantify the average of Bugs and Defect Debt in the ana
 \noindent\rqiii
 \vspace{3mm}
 
-\noindent\textbf{Motivation:} Learning from mistakes of the past can be useful in software engineering as well. We want to know if it is possible to determine if a defect are likely to become defect technical debt by analyzing the cases that were identified in RQ1. Answering this question will provide us with more means to effectively manage defect debt by knowing before hand that the specific defect will have to be handled in the future to avoid quality impacts. 
+\noindent\textbf{Motivation:} We want to know if it is possible to determine what are the important factors when modeling Defect Debt. Answering this question will provide us with more means to effectively manage Defect Debt by knowing before hand that the specific defect will have to be handled in the future carefully to avoid quality impacts based on the factors that are important in the model. 
 
 \vspace{1mm}
-\noindent\textbf{Approach:} Based on the defect debt identified in the project we will analyze the bug reports looking for patterns in the attributes to build a prediction model. This information will serve as our training set. Then we will run the analyze again using the data from other project to measure the precision of our model. 
+\noindent\textbf{Approach:} First we selected  of metrics that we believed that would be good indicators of Defect Debt. In our data base we prepared the following metrics per release: number of corrective commits, number of feature addition commits, number of merge commits, number of non function commits, number of perfective commits, number of preventative commits, number of non classified commits, total number of churn, total number of developers, difference of developers from previous release, project complexity, lines of code, number of comments in the bug report, total number of bug fixes and bug reported close to the next release.
 
+Second, we run the analysis in understand, and build our own script to extracted data using the API. We extract lines of code and complexity of the release using Understand. We process 17 tag of Chrome in this tool creating one database for each tag. The oldest tag that we were able to retrieve from Chrome in this experiment was the release \todo{release}. To create our model we just consider tags that we can get all the selected metrics, which means \todo{tags}
+
+Third, we import the data into RStudio. RStudio is a tool to the statical analysis using the programming language R. For each one of the metrics that we collect we checked their data distribution. We do that using skewness and kurtosis both are commands from the library e1071 that can be imported into RStudio. Skewness is used to verify if the data is skewed to the left or to the right in the x axis. The value returned from this function should be close to zero, which means that your data is normally distributed. Kurtosis follows the same principle but is used to check the data distribution in the y axis. After running these commands we apply the log function to the following factors in order to normalize the data: number non functional commits, difference of developers from previous release and number of comments in the bug report. 
+
+Fourth we do the correlation of the factors. and test the results of the correlation.
+
+Fifth, we build the model and do the vif function to verify the factors in the model that are measuring the same thing. 
+ 
 \vspace{1mm}
 \noindent\textbf{Result:}
+
+\todo{table with correlation}
+\todo{explain the model}
+\todo{table with all the results}
