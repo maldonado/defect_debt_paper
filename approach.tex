@@ -9,7 +9,7 @@ The goal of our project is to distinguish Defect Debt from Bugs. In order to do 
 
 \subsection{Data Extraction}
 
-We use Google Chrome to conduct our study. Chrome is a large, mature open source software mostly written in C/C++. The criteria to select this project are its size, the easy access to its source code repository and to the its issuer tracker. Other than that, we had at our disposal some of the desired data that was used in a previous study. This data contained 47.938 html files and 5 tables. Each one of the files represent a bug extracted from the issue tracker. The tables contains the necessary information to link issues files, bugs and commits together. More details about the project can be found in table \ref{tab:project_details}.
+We use Google Chrome to conduct our study. Chrome is a large, mature open source software mostly written in C/C++. The criteria to select this project are its size, \peter{Don't use ease as a reason} the easy access to its source code repository and to the its issuer tracker. Other than that, we had at our disposal some of the desired data that was used in a previous study. \peter{you mean bug reports?} This data contained 47.938 html files and 5 tables. Each one of the files represent a bug extracted from the issue tracker. The tables contains the necessary information to link issues files, bugs and commits together. More details about the project can be found in table \ref{tab:project_details}.
 
 To complement the data necessary to our study, we extract from the Chrome Releases website \cite{chrome_releases} the release date of each stable version release, the tag of the release and the release number. Then we store this data in our database.
  
@@ -71,11 +71,11 @@ The most important data to link for our study are bug reports and the commits th
 
 In this section we describe the metrics used in our study. All of the metrics are grouped by release as our goal is to analyze the project in the release level. 
 
-\textbf{Commit classification:} A commit can be classified as `Feature Addition', `Corrective', `Preventative', `Merge', `Non Functional', `Perfective' and without classification. We store the total number of each one of these classifications per release. %We selected these metrics to reveal the nature of the changes in the different releases and mostly to track feature addition behavior. 
+\textbf{Commit classification:} A commit can be classified as `Feature Addition', `Corrective', `Preventative', `Merge', `Non Functional', `Perfective' and without classification. We store the total number of each one of these classifications per release. 
 
-\textbf{Churn:} We calculate churn as the number of lines changed in a file compared with its previous version. Both the addition and deletion of a line in a file is considered as a change. We calculate the total churn by summing the number of lines added and removed of all commits per release. %This metric is important 
+\textbf{Churn:} We calculate churn as the number of lines changed in a file compared with its previous version. Both the addition and deletion of a line in a file is considered as a change. We calculate the total churn by summing the number of lines added and removed of all commits per release. \peter{This sounds strange, are you just counting +/- in a diff?}
 
-\textbf{Developers:} This metric is the number of developers that had at least one commit in the analyzed version. In our study a developer is identified by the user login contained in the commit message. We choose to identify the developers by the login instead of using email because most developers have more than one email account in their git account. 
+\textbf{Developers:} This metric is the number of developers that had at least one commit in the analyzed version. In our study a developer is identified by the user login contained in the commit message. We choose to identify the developers by the login instead of using email because most developers have more than one email account in their git account. \peter{ok, may need to validate this later}
 
 \textbf{Developers joining or leaving the project:} This is a derived metric based on the total number of developers in the previous release. If the difference of unique developers from one release to another is positive we store this value as developers joining, and if the difference is negative we store the value as developers leaving the project. We do not make any assumption of the experience of the developers in this metric.
 
@@ -84,6 +84,7 @@ In this section we describe the metrics used in our study. All of the metrics ar
 \textbf{Lines of code:} The count of all lines of code in the source files including comments. This metric does not take into consideration blank lines.
 
 \textbf{Bug report comments:} We extract this metric based on the number of replies that one posted bug report has. All replies in the issuer tracker is treated as a comment. Our perception is that users impacted by a Defect Debt will comment in the issuer tracker page to ask for a fix or to search for a `work-around' while the problem is not solved. We intuitively think that bug reports with a hight number of comments are bug reports of Defect Debt.
+\peter{Haven't you done past work on this? I didn't see this in the background}
 
 \textbf{Bug report next to new release:} This metric is the total number of bug reports created close to next release date. We use a threshold of 2 weeks to calculate this metric.  
 
