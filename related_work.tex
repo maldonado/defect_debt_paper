@@ -1,3 +1,15 @@
-Chen et al. \cite{Chen2014MSR} conduct their work in dormant bugs. They classify dormant bugs as 
+We divide our related work into two categories Bugs and Technical Debt.
 
-Our work differs from previous work because a Defect Debt is a know issue to the development team whereas a Dormant Bug is a defect that is hidden for a long period of time and eventually it crash. In other words Defect Debt is know option not an accident.
+\textbf{Work related with Bugs:}
+
+Chen et al. \cite{Chen2014MSR} conduct their work defining dormant bugs. They analyzed the impact of bugs that are inserted into the source code but just much later in the project they are found. This kind of bug is problematic as it is possible that the developer who introduced this bug is not working in the project anymore. Other than that they can be assigned to people that does not know exactly that specific part of the software. They conducted a empirical study in open source apache projects and they found that these bugs are assigned to more experienced developers and they tend to take longer to be fixed. In their conclusion they state the differences they found between dormant and non-dormant bugs.
+
+Our work differs from previous work because a Defect Debt is a know issue to the development team whereas a Dormant Bug is a defect that is hidden for a long period of time and eventually it crashes. In other words, Defect Debt is more like an option than an accident.
+
+Garcia et al. \cite{garcia2014MSR} analyzed the characterization and prediction of blocking bugs. Blocking Bugs are Bugs that prevents that other bugs get fixed before them. In other words, is impossible to fix a regular bug without taking care of the blocking bug first. Other than that, Blocking bugs takes more time to be fixed than non Blocking Bugs. They mine the bug repository of 6 open source projects and extracted 14 factors from this data to then analyze this data using machine learning techniques. With their results they build a prediction model that achieve F-Measure values between 15\% and 42\% and they also analyzed which are the factors most relevant for the prediction of blocking bugs.
+
+Our work is different from the previous one as we are charactering Defect Debt and understanding its impacts, although a interesting collaboration would be how much of Defect Debt represent blocking bugs, if this scenario happens with frequency we can highly  improve the management of this kind of bugs as we purpose a very light weight approach to identify Defect Debt.
+
+\textbf{Work related with Technical Debt:}
+
+A number of studies have focused on the study of, detection and management of technical debt. Fore example, Seaman et al.~\cite{Seaman201125} and Kruchten et al.~\cite{Kruchten2013GSOFT}  make several reflections about the term technical debt and how it has been used to communicate the issues that developers find in the code in a way that managers can understand. Although there is still some points of disagreement as the one that we are trying to clarify in our work.
