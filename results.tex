@@ -1,5 +1,6 @@
 We conduct our study in a large scale open source software system to distinguish Defect Debt and Bugs. First, we analyze the history of issues in the system, and then we suggest a definition to Defect Debt and to Bugs. Based on this definition we quantify  both on them per release. Second, we analyze the evolution of Defect Debt to understand its impact on future feature addition. Third, based on our metrics we propose a model to Defect Debt.
 
+\emad{Put this RQ as a preliminary question, so when we start the case study we already have the definition of defect debt. The motivation of the preliminary question should explore the fact that there is no clear definition on defect debt therefore we propose one. }
 \vspace{3mm}
 \noindent\rqi
 \vspace{3mm}
@@ -42,6 +43,8 @@ Based on our findings we quantify the average of Bugs and Defect Debt in the ana
 \conclusionbox{Bugs are more critical defects, and get fixed in the reported or in the next release. Whereas Defect Debt may linger in the system for a long time, but eventually it get fixed. The average percentage of Bugs is of 69.55\%, and Defect Debt is of 30.44\% \peter{Nice, since you use number of releases in your definition of defect debt, we can't  really study time to fix each, without first acknowledging this definition}}
 \vspace{1mm}
 
+\emad{we should expand this question to really analyze impact. How does defect debt impacts the addition of new features. How does defect debt impacts maintenance? We should determine how the number of defect debt in one release affects the number of bug fixes done to bugs in the current release.  We should measure the effort for both defects reported in the release and defect debt from other releases. We can use number of files in a change, spread of the change and lines of code changed, then compare then to understand the differences.  }
+
 \vspace{3mm}
 \noindent\rqii
 \vspace{3mm}
@@ -54,6 +57,7 @@ Based on our findings we quantify the average of Bugs and Defect Debt in the ana
 \begin{center}
 	$Open bugs=  Reported - Fixed + Last Release OpenBugs$
 \end{center}
+
 
 Second, we extract the number of  Defect Debt from the system. To understand how Defect Debt will impact the number of feature addition we have to collect the total number of Defect Debt per release. We define Defect Debt as a defect that was reported more than 2 releases from the current release being analyzed. We say that a Defect Debt belongs to a release when the fix for the Defect Debt is commited in the release.
  
@@ -128,6 +132,7 @@ Although the number of Defect Debt have no impact in the number of feature addit
     \includegraphics[width=0.49\textwidth]{figures/feature_addition_releases}
 \end{figure}
 
+\emad{we have to extract metrics from more projects to solve the problem of lack of data.}
 \vspace{3mm}
 \noindent\rqiii
 \vspace{3mm}
@@ -154,7 +159,8 @@ We verify the collected data in RStudio to understand how it is distributed. Fir
 
 We show the correlation results in table \ref{tab:correlation_defect_debt}.  Analyzing the results we can see that the only metric strongly correlated with Defect Debt is the number of comments in a bug reported. We believe that this express one of the found characteristics of Defect Debt that is defects that are important but get a long time to be fixed. During the period of time that fixes are postponed to these defects comments in the bug reported starts to pile up. 
 
-Other than that, it is interesting to analyze the negative correlations that we got. A negative correlation means that the correlated factors has an inverse relationship (i.e., as one increase the other one will decrease). For example, we found this scenario in the total number of developer per release, when this number increases the number of Defect Debt will decrease. We think that this behavior may be valid as you have more developers working in the release there is more chances to Defect Debt be removed. At first, the analysis of the other negative correlations does not looks like to make sense as they are stating that more complexity and lines of code means less Defect Debt. Accordingly to our previous findings that the number of feature addition can increase the number of Defect Debt, we think that this correlations are possible as complexity and loc are measures that are related with the size of the source code. Although there is a explanation for these correlation (i.e., without any code the project will have no defects) it does not means that these correlations are useful for our model of Defect Debt. 
+Other than that, it is interesting to analyze the negative correlations that we got. A negative correlation means that the correlated factors has an inverse relationship (i.e., as one increase the other one will decrease). For
+ example, we found this scenario in the total number of developer per release, when this number increases the number of Defect Debt will decrease. We think that this behavior may be valid as you have more developers working in the release there is more chances to Defect Debt be removed. At first, the analysis of the other negative correlations does not looks like to make sense as they are stating that more complexity and lines of code means less Defect Debt. Accordingly to our previous findings that the number of feature addition can increase the number of Defect Debt, we think that this correlations are possible as complexity and loc are measures that are related with the size of the source code. Although there is a explanation for these correlation (i.e., without any code the project will have no defects) it does not means that these correlations are useful for our model of Defect Debt. 
 
 \begin{table}[!hbt]
       \begin{center}
